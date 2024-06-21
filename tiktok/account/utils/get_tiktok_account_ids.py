@@ -14,7 +14,7 @@ APP_SECRET = os.environ.get('APP_SECRET')
 APP_ID = os.environ.get('APP_ID')
 
 
-def build_url(path: str, query: str = "") -> str:
+def build_url(path: str, query: str = ""):
    """
    Build request URL
    path: Request path

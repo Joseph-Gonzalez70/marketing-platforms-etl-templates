@@ -3,8 +3,9 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import os
-from tiktok.account import gettik_tok_accounts
-from tik_tok_api_calls import tik_tok_api_pull
+from tiktok.account import get_tiktok_accounts
+import utils 
+from api_call_metrics_list import api_metrics_list
 
 
 from dotenv import load_dotenv
@@ -24,7 +25,7 @@ tiktok_access_token = os.getenv("TIKTOK_ACCESS_KEY")
 
 
 # Pull the available Tiktok account ids
-tiktok_account_names = pd.DataFrame(tik_tok_accounts.get_tiktok_accounts())
+tiktok_account_names = pd.DataFrame(get_tiktok_accounts())
 tiktok_account_names['advertiser_id'] = (
     tiktok_account_names['advertiser_id']
     .apply(lambda item: str(item))
@@ -40,8 +41,8 @@ end_date= dt.date.today()
 campaign_data = pd.Series(dtype='float64')
 for acc_id in tt_account_ids:
    time.sleep(2)
-   tiktok_data = tik_tok_api_pull.get_synch_report(
-                   metrics_list=,
+   tiktok_data = utils.get_synch_report(
+                   metrics_list=api_metrics_list,
                    data_level = 'AUCTION_CAMPAIGN',
                    end_date=end_date,
                    order_type='ASC',
