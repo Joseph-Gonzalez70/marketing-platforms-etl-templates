@@ -1,9 +1,11 @@
 import time
+#import pydomo
 import datetime as dt
 import pandas as pd
-import numpy as np
+#import numpy as np
+import re
 import os
-from tiktok.account import get_tiktok_accounts
+from tiktok.account.utils import get_tiktok_accounts
 import utils 
 from api_call_metrics_list import api_metrics_list
 
@@ -109,7 +111,9 @@ categorical_data = (
                                                        "stat_time_day",
                                                        "secondary_goal_result", 
                                                        "advertiser_id", 
-                                                       "batch_time")]]
+                                                       "batch_time")
+                                                       ]
+                                                    ]
 )
 
 
