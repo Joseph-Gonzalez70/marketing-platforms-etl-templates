@@ -5,7 +5,7 @@ import pandas as pd
 #import numpy as np
 import re
 import os
-from tiktok.account.utils import get_tiktok_accounts
+from tiktok.account.utils.get_tiktok_account_ids import get_tiktok_accounts
 import utils 
 from api_call_metrics_list import api_metrics_list
 
@@ -15,14 +15,16 @@ load_dotenv()
 
 
 # Get the TikTok API credentials
-tiktok_access_token = os.getenv("TIKTOK_ACCESS_KEY")
+tiktok_access_token = os.getenv("TIKTOK_ACCESS_TOKEN")
 
 # Set an object to store the data:
 #ENTER HERE AN OBJECT TO STORE THE DATA
 
 # Example for DOMO:
 #domo_access_object = **json.loads(os.getenv("DOMO_CREDENTIALS"))
-#domo = pydomo.Domo(domo_access_object['client_id'],domo_access_object['secret'], domo_access_object['api_host'])
+#domo = pydomo.Domo(domo_access_object['client_id'],
+# domo_access_object['secret'], 
+# domo_access_object['api_host'])
 
 
 # Pull the Tiktok account ids
@@ -70,7 +72,10 @@ for acc_id in tt_account_ids:
    for list_item in data_list:
        level_id_time = pd.Series(list_item['dimensions'])
        level_metrics = pd.Series(list_item['metrics'])
-       data_row = pd.concat([level_id_time, level_metrics, pd.Series({"advertiser_id":acc_id, "batch_time": dt.datetime.now()})])
+       data_row = pd.concat([level_id_time, 
+                             level_metrics, 
+                             pd.Series({"advertiser_id":acc_id, "batch_time": dt.datetime.now()})]
+                            )
        ad_data = pd.concat([ad_data , data_row], axis = 1)
 
 

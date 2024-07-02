@@ -5,7 +5,7 @@ import pandas as pd
 #import numpy as np
 import re
 import os
-from tiktok.account.utils import get_tiktok_accounts
+from tiktok.account.utils.get_tiktok_account_ids import get_tiktok_accounts
 import utils 
 from api_call_metrics_list import api_metrics_list
 
@@ -15,7 +15,7 @@ load_dotenv()
 
 
 # Get the TikTok API credentials
-tiktok_access_token = os.getenv("TIKTOK_ACCESS_KEY")
+tiktok_access_token = os.getenv("TIKTOK_ACCESS_TOKEN")
 
 
 # Set an object to store the data:
@@ -137,20 +137,36 @@ tiktok_campaign_data = tiktok_campaign_data.merge(tiktok_account_names,
 # Only need the recent pulling and keep the old static
 #domo_tiktok_data = domo.ds_get("")
 #domo_tiktok_data = domo_tiktok_data.dropna(how='all')
-#domo_tiktok_data.loc[:, 'campaign_id'] = domo_tiktok_data.loc[:,'campaign_id'].apply(lambda item: str(np.int64(item)))
-#domo_tiktok_data.loc[:,'advertiser_id'] = domo_tiktok_data.loc[:,'advertiser_id'].apply(lambda item: str(np.int64(item)))
-#domo_tiktok_data['stat_time_day'] = domo_tiktok_data.loc[:, 'stat_time_day'].apply(lambda item: re.search(r'[^ ]*', str(item)).group())
+#domo_tiktok_data.loc[:, 'campaign_id'] = (
+# domo_tiktok_data
+# .loc[:,'campaign_id']
+# .apply(lambda item: str(np.int64(item)))
+# )
+#domo_tiktok_data.loc[:,'advertiser_id'] = (
+# domo_tiktok_data
+# .loc[:,'advertiser_id']
+# .apply(lambda item: str(np.int64(item)))
+# )
+#domo_tiktok_data['stat_time_day'] = (
+# domo_tiktok_data
+# .loc[:, 'stat_time_day']
+# .apply(lambda item: re.search(r'[^ ]*', str(item)).group())
+# )
 #domo_tiktok_data = tiktok_campaign_data.merge(tik_tok_account_names , how = 'left', on = 'advertiser_id' )
 #domo_tiktok_data = domo_tiktok_data.assign(batch_time = '2023-04-01 20:28:52.096486')
 #domo_tiktok_data = domo_tiktok_data.loc[:, [i for i in domo_tiktok_data if i != 'row_num']]
 
 
 #tiktok_full = pd.concat([tiktok_campaign_data, domo_tiktok_data], ignore_index = True)
-#tiktok_full['row_num'] = tiktok_full.sort_values(["campaign_id", "stat_time_day", "batch_time"], \
-                           #ascending=[True, True, False])\
-                           #.groupby(["campaign_id", "stat_time_day"])\
-                          # .cumcount() + 1
-#domo_tiktok_data_final = tiktok_full.loc[tiktok_full.row_num == 1, [i for i in tiktok_full.columns if i != 'row_num']]
+#tiktok_full['row_num'] =(tiktok_full
+# .sort_values(["campaign_id", "stat_time_day", "batch_time"], ascending=[True, True, False])
+# .groupby(["campaign_id", "stat_time_day"])\
+# .cumcount() + 1
+#)
+#domo_tiktok_data_final = (
+# tiktok_full
+# .loc[tiktok_full.row_num == 1, [i for i in tiktok_full.columns if i != 'row_num']]
+# )
 
 
 

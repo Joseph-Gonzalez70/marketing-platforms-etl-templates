@@ -10,3 +10,4 @@ env/
 *.xlsx
 .DS_store
 **/.venv/
+.env

@@ -34,6 +34,21 @@ def get(json_str,
    rsp = requests.get(url, headers=headers)
    return rsp.json()
 
+def post(json_str):
+   # type: (str) -> dict
+   """
+   Send GET request
+   :param json_str: Args in JSON format
+   :return: Response in JSON format
+   """
+   args = json.loads(json_str)
+   query_string = urlencode({k: v if isinstance(v, string_types) else json.dumps(v) for k, v in args.items()})
+   url = build_url(PATH, query_string)
+   headers = {
+       "Access-Token": ACCESS_TOKEN,
+   }
+   rsp = requests.post(url, headers=headers)
+   return rsp.json()
 
 def get_synch_report(metrics_list, 
                      data_level,
